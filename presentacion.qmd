@@ -1,0 +1,124 @@
+---
+title: "Técnicas y Herramientas Modernas "
+author: "FING - UNCUYO"
+format:
+  revealjs: 
+    # 1. Selección de tema (puedes cambiar 'league' por: moon, night, simple, sky, etc.)
+    theme: blood
+transition: concave
+scrollable: true
+include-in-header:
+      - text: |
+          <style>
+          .title {
+            font-size: 3em !important;
+          }
+          </style>
+---
+
+#  {background-image="ALGORITMOS/pipus%20logo.png" background-size="cover"}
+
+## SUCESIÓN FIBONACCI
+
+::: {style="font-size: 1.3em;"}
+<br> Es una serie infinita de números naturales donde cada número se obtiene sumando los dos anteriores. <br> Comienza con los números 0 y 1, a partir de estos cada uno de los siguientes términos es la suma de los dos anteriores.(0,1,1,2,3,5,8,13...)
+:::
+
+## 
+
+<br>
+
+::: {style="font-size: 1.0em;"}
+Es muy famosa porque aparece constantemente en la naturaleza (piñas,girasoles,ramas de árboles,caracoles,etc.) y tambien se aplica en el arte y la arquitectura para lograr proporciones armoniosas.
+:::
+
+![](ALGORITMOS/pres.jpg){fig-align="center" width="80%"}
+
+## 
+
+![](ALGORITMOS/arbol.jpg){fig-align="center" width="50%"}
+
+## 
+
+![](ALGORITMOS/espiral.png){fig-align="center" width="50%"}
+
+## 
+
+![](ALGORITMOS/mona.webp){fig-align="center" width="50%"}
+
+## Secuencia Fibonacci y La Proporción Áurea
+
+Si tomamos dos números consecutivos de la serie de Fibonacci y dividimos el mayor por el menor, el resultado se aproxima cada vez más a $\phi$=1,618033 conocida como "Proporción Áurea"
+
+![](ALGORITMOS/cuerpo.jpg){fig-align="center" width="50%"}
+
+## 
+
+A continuación puede verse el código para implementar la serie:
+
+```{r}
+#| echo: true
+#| eval: true
+
+# 1. Configuración de variables iniciales
+n <- 100
+F <- vector(mode = "numeric", length = n)
+A <- 0
+B <- 1
+
+# 2. Asignación de los dos primeros valores
+F[1] <- A
+F[2] <- B
+
+# 3. Bucle para calcular la secuencia de Fibonacci
+for (i in 3:n) {
+  F[i] <- F[i-1] + F[i-2]
+}
+
+# 4. Mostrar las primeras 6 posiciones del vector
+head(F)
+
+```
+
+```{r}
+#| echo: true
+
+# Inicialización
+F <- c(0, 1)
+i <- 2
+
+# Bucle que se detiene al superar 1.000.000
+while (F[i] <= 1000000) {
+  proximo <- F[i] + F[i-1]
+  F <- c(F, proximo)
+  i <- i + 1
+}
+
+# Resultados
+cat("El primer número mayor a 1M es:", F[i], "\n")
+cat("Se necesitaron", i, "iteraciones (elementos del vector).")
+```
+
+## 
+
+::: {style="font-size: 0.92em;"}
+<br> **Antenas Fractales:** Miniaturización de componentes para captar múltiples frecuencias (5G/Wi-Fi) en un solo dispositivo.
+
+**Criptografía y Simulaciones:** Uso de generadores de Fibonacci rezagados para crear secuencias numéricas aleatorias de alta complejidad y largo periodo.
+
+**Optimización de Procesos:** Métodos de búsqueda para hallar puntos de máxima eficiencia industrial con menos recursos.
+
+**Ingeniería Estructural:** Uso de la proporción áurea para equilibrar la distribución de cargas y la resistencia de materiales.
+
+**Acústica:** Diseño de recintos para el control de resonancias y dispersión sonora.
+:::
+
+## 
+
+<br> <br>
+
+::: {style="text-align: center; font-size: 2em; margin-top: 100px;"}
+¡Gracias por su atención!
+:::
+
+##  {background-image="ALGORITMOS/pipus%20logo.png" background-size="cover"}
