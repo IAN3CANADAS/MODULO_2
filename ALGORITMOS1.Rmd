@@ -1,0 +1,517 @@
+---
+classoption: "runningheads"
+title: "MÓDULO 2-ALGORITMOS EN R\\thanks{Supported by organization x.}"
+shorttitle: "Short title"
+# shorttitle: "Abbreviated paper title"
+authors: 
+    
+  - name: "Cañadas Ian"
+    inst: "1"
+    orcid: ""
+  - name: "Bresci, Joaquin"
+    inst: "2"
+    orcid: ""
+  - name: "Isgro, Mateo"
+    inst: "1"
+    orcid: ""
+  - name: "La Rocca, Nicolás"
+    inst: "1"
+    orcid: ""
+  - name: "Salvo, Luca"
+    inst: "1"
+    orcid: ""
+  - name: "Zanetti, Bautista"
+    inst: "1"
+    orcid: ""
+authorrunning: "F. Author et al." 
+institutes: 
+  - name: "Universidad Nacional de Cuyo, Instituto de Ingenería Industrial,POBOX 5502,C.P.:5500 Mendoza , Argentina"
+  - name: " "
+    email: "lncs@uncuyo.com"
+    url: "http://www.uncuyo.edu.ar/contacto"
+  - name: " "
+    email: " "
+abstract: | 
+  R Posit en un software online que permite utilizar lenguaje R y trabajar tambien con matrices de forma similar a Mathlab
+keywords: 
+  - Lenguaje R[@RCore2023;@Ggplot2016; @Xie2018]
+  - TYHM
+  - Algoritmos
+bibliography: referencias.bib
+nocite: '@*'
+csl: https://www.zotero.org/styles/springer-lecture-notes-in-computer-science
+natbiboptions: numbers
+output: 
+  rticles::lncs_article:
+  citation_package: default
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      out.extra = "")  # This forces knitr to label all figures.
+```
+
+1.  Introducción
+
+Con R podemos transformar problemas del día a día en modelos
+matemáticos. Lo interesante es que no nos quedamos con la primera
+solución, sino que comparamos varios algoritmos para ver cuál es más
+rápido y consume menos recursos
+
+2.1. Ejercicio 1: Generar un vector secuencia
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+# Definición de variables y operaciones básicas
+a <- 40
+b <- 60
+c <- b - a
+print(c)
+```
+
+2.1.2. Creación de una matriz de 3x3
+
+Escribimos ‘ncol’ para cantidad de columnas Siempre es byrow TRUE o
+FALSE para que lo acomode en orden de filas o de columnas
+
+```{r}
+# Crea una matriz con números del 1 al 9
+mi_matriz <- matrix(1:9, nrow = 3, ncol = 3)
+
+# Ver el resultado
+print(mi_matriz)
+
+```
+
+2.3 Uso de base de datos
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+# Resumen de base de datos interna
+summary(cars)
+print(cars)
+plot(pressure)
+```
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+ # Generar 350 datos con media 22 y desviación estándar 5
+Z1 <- rnorm(350, 22, 5)
+print(Z1)
+
+# Graficar los puntos
+plot(Z1)
+
+# Obtener la longitud
+w1 <- length(Z1)
+print(w1)
+
+# Crear una secuencia de la misma longitud para graficar (350 elementos)
+x1 <- seq(500, length.out = 350)
+plot(Z1, x1)
+
+# Creación de histograma
+hist(Z1, main = "Histograma de edades", breaks = 10, col = "lightblue")
+
+# Cálculo y gráfico de densidad
+densidad <- density(Z1)
+plot(densidad, main = "Gráfico de Densidad de Z1", col = "red")
+```
+
+## Ejercicio 1
+
+DNI=910
+
+```{r}
+#CONSIGNA: CREAR UN VECTOR QUE TENGA TODOS LOS NUMEROS ENTEROS DESDE EL 1 AL 910.
+secuencia_dni<-(1:447)
+print(secuencia_dni)
+
+## Ejercicio 2
+##Calcular la suma de todos los valores del vector secuencia_dni
+Total<-0
+valor_final<-length(secuencia_dni)
+for (i in 1:valor_final)
+Total<-Total+i
+Total
+```
+
+## Ejercicio 3
+
+##Repetir ejercicio 2 pero usando Python
+
+valor_final = length(secuencia_dni) total = 0
+
+for i in range(1, valor_final + 1): total += i
+
+print(total)
+
+## Ejercicio 4
+
+#cuanto demora en correr el código del ejercicio 2
+
+```{r}
+# Registramos el momento de inicio
+inicio <- Sys.time()
+
+Total <- 0
+ 'length'
+valor_final <- length(secuencia_dni)
+
+for (i in 1:valor_final) {
+  Total <- Total + i
+}
+
+# Registramos el momento de finalización
+fin <- Sys.time()
+
+# Calculamos la diferencia
+duracion <- fin - inicio
+
+# Mostramos los resultados
+print(Total)
+print(duracion)
+
+```
+
+## Ejercicio 5
+
+# Implementación de una serie Fibonacci
+
+La sucesión de Fibonacci es una serie infinita de números naturales
+donde cada número se obtiene sumando los dos anteriores. Es una de las
+secuencias más famosas de las matemáticas porque aparece constantemente
+en la naturaleza (piñas,girasoles,ramas de árboles,caracoles,etc)
+
+```{r, echo=FALSE, out.width="50%", fig.align="center"}
+knitr::include_graphics("fibo.png")
+```
+
+La serie Fibonacci comienza con los números 0 y 1, a partir de estos
+cada uno de los siguientes términos es la suma de los dos
+anteriores.(0,1,1,2,3,5,8,13...) A continuación puede verse el código
+para implementar la serie:
+
+```{r}
+F <- vector(length = 100)
+A <- 0
+B <-1
+F[1] <-A
+F[2] <-B
+for (i in 3:100)
+{F[i] <-(F[i-1]+F[i-2])}
+head(F) 
+```
+
+## Ejercicio 6
+
+La **Ordenación de burbuja** (Bubble Sort en inglés) es un sencillo
+algoritmo de ordenamiento. Funciona revisando cada elemento de la lista
+que va a ser ordenada con el siguiente, intercambiándolos de posición si
+están en el orden equivocado. Es necesario revisar varias veces toda la
+lista hasta que no se necesiten más intercambios, lo cual significa que
+la lista está ordenada. Este algoritmo obtiene su nombre de la forma con
+la que suben por la lista los elementos durante los intercambios, como
+si fueran pequeñas burbujas. También es conocido como el método del
+intercambio directo. Dado que solo usa comparaciones para operar
+elementos, se lo considera un algoritmo de comparación, siendo uno de
+los más sencillos de implementada.
+
+```{r}
+# 1. Definición de la función (Método Burbuja)
+burbuja <- function(x) {
+  n <- length(x)
+  for (j in 1:(n - 1)) {
+    for (i in 1:(n - j)) {
+      if (x[i] > x[i + 1]) {
+        temp <- x[i]
+        x[i] <- x[i + 1]
+        x[i + 1] <- temp
+      }
+    }
+  }
+  return(x)
+}
+
+```
+
+## Ejercicio 7
+
+Compara la performance de ordenación del método burbuja vs el método
+sort de R Usar método microbenchmark para una muestra de tamaño 20.000
+
+```{r}
+# 2. Comparación de rendimiento
+library(microbenchmark)
+
+# Generamos un vector de prueba
+set.seed(123) # Para que los resultados sean replicables
+test_data <- sample(1:1000, 100)
+
+comparativa <- microbenchmark(
+  Metodo_Burbuja = burbuja(test_data),
+  Funcion_Base_R = sort(test_data),
+  times = 50
+)
+
+print(comparativa)
+```
+
+## Ejercicio 8
+
+La penitencia de Newton Comentan algunos historiadores que Newton tenía
+en le escuela primaria un profesor muy exigente que reclamaba
+constantemente la atención de los alumnos a lo que el estaba enseñando.
+Tan pronto alguien cometía un acto improcedente lo castigaba con una
+penitencia que consistía en traer para el día siguiente el resultado de
+la suma de desde el número 1 hasta cierto número aleatoriamente elegido.
+Por supuesto esta tarea demandaría quedarse toda la noche haciendo las
+sumas parciales, tarea que el profesor ya había realizado previamente y
+que tenía registrado en un voluminoso cuaderno que (al esltio tabla de
+logaritmos) cargaba religiosamente en su portafolios de cuero. Consigna
+de trabajo : Desarrolla dos algoritmos que hagan este trabajo , por
+ejemplo para sumar desde 1 hasta 1\*1010 y verifica cuál de los dos es
+más eficiente.
+
+```{r}
+# Algoritmo 1: Suma con bucle for
+suma_for <- function(n) {
+  suma <- 0
+  for (i in 1:n) {
+    suma <- suma + i
+  }
+  return(suma)
+}
+
+# Algoritmo 2: Suma con fórmula de Gauss
+suma_gauss <- function(n) {
+  return(n * (n + 1) / 2)
+}
+
+# Valor elegido para n (100 millones)
+n <- 1e8
+
+# Ejecutamos ambos métodos
+resultado_for <- suma_for(n)
+resultado_gauss <- suma_gauss(n)
+
+# Mostramos los resultados
+resultado_for
+resultado_gauss
+```
+
+Conclusión: El benchmarking nos permite entender la calidad del
+algoritmo y la eficiencia según el recurso físico.
+
+## 4 Cuarta sección:Benchmarking de Algoritmos y Medioides (kmeans) 4.1
+
+Comparativa métodos de ordenamiento “burbuja” y sort nativo de R .
+
+```{r}
+# Cargar librerías necesarias
+library(microbenchmark)
+library(ggplot2)
+
+# 1. Definición del algoritmo de Burbuja
+# x: vector numérico a ordenar
+burbuja <- function(x) {
+  n <- length(x)
+  for (j in 1:(n - 1)) {
+    for (i in 1:(n - j)) {
+      if (x[i] > x[i + 1]) {
+        # Intercambio de valores (Swap)
+        temp <- x[i]
+        x[i] <- x[i + 1]
+        x[i + 1] <- temp
+      }
+    }
+  }
+  return(x)
+}
+
+# 2. Preparación de datos
+set.seed(123)
+datos_v <- sample(1:10000, 500)
+
+# 3. Benchmark: Comparación de tiempos
+# Se usa unit = "ms" para visualizar los resultados en milisegundos
+bm_ordenacion <- microbenchmark(
+  "Burbuja (O(n^2))" = burbuja(datos_v),
+  "Sort Nativo (Shell/Quick)" = sort(datos_v),
+  times = 20,
+  unit = "ms"
+)
+
+# Mostrar resumen en consola
+print(bm_ordenacion)
+
+# 4. Visualización de resultados
+p1 <- autoplot(bm_ordenacion) +
+  labs(
+    title = "Comparativa de Rendimiento en R",
+    subtitle = "Algoritmo de Burbuja vs. Función sort() nativa (n=500)",
+    x = "Algoritmo de Ordenamiento",
+    y = "Tiempo de Ejecución"
+  ) +
+  theme_minimal()
+
+# Renderizar el gráfico
+print(p1)
+```
+
+CONCLUSION:Tras analizar la distribución de tiempos en el gráfico de
+violín, queda clara la superioridad técnica de la función base sort()
+frente a la implementación manual de Bubble Sort.
+
+Los puntos clave del análisis son:
+
+La función nativa de R aprovecha rutinas optimizadas en C,lo que permite
+ejecuciones en el orden de los microsegundos.
+
+Mientras que Bubble Sort está limitado por una eficienciateórica de
+O(n\^2), el método nativo minimiza la latencia de cómputo.
+
+Se confirma que el procesamiento línea por línea (bucles)
+
+Es ineficiente en R para grandes estructuras de datos.
+
+**4.2 Análisis de Performance K-means**
+
+Introducción Teórica: El algoritmo K-means es un método de aprendizaje
+no supervisado utilizado para el agrupamiento (clustering). Su objetivo
+es particionar un conjunto de n observaciones en k grupos distintos. El
+algoritmo funciona de manera iterativa:
+
+1.Se inicializan k centroides de forma aleatoria.
+
+2.Cada punto se asigna al centroide más cercano (basado en la distancia
+euclídea).
+
+3.  Se recalculan los centroides promediando la posición de todos los
+    puntos asignados a cada grupo.
+
+4.  El proceso se repite hasta que las asignaciones no cambian o se
+    alcanza un límite de iteraciones.
+
+La eficiencia del método es alta, pero su tiempo de ejecución se ve
+afectado por el número de dimensiones de los datos y, fundamentalmente,
+por la cantidad de clusters (k) definidos.
+
+**4.3 Medición de Performance con Gráfico de Violín**
+
+```{r}
+# 1. Simulamos un dataset de 5.000 puntos en 2 dimensiones
+set.seed(42)
+datos_km <- matrix(rnorm(10000), ncol = 2)
+
+# 2. Medimos el tiempo para encontrar 3, 5 y 10 clusters
+# Realizamos 50 repeticiones para obtener una distribución
+# robusta
+bm_kmeans <- microbenchmark(
+  "k=3" = kmeans(datos_km, centers = 3),
+  "k=5" = kmeans(datos_km, centers = 5),
+  "k=10" = kmeans(datos_km, centers = 10),
+  times = 50
+)
+
+# 3. Generación del gráfico de violín
+p_km <- autoplot(bm_kmeans) +
+  labs(title = "Performance de Agrupamiento K-means",
+       subtitle = "Comparación por número de clusters (k)",
+       x = "Cantidad de Grupos (k)", y = "Tiempo de ejecución") +
+  theme_light()
+
+# 4. Forzar visualización en el PDF
+print(p_km)
+```
+
+**4.4 Conclusión K-means**
+
+El gráfico resultante permite observar cómo el tiempo de ejecución se
+incrementa a medida que aumentamos el valor de k. Esto se debe a que el
+algoritmo debe realizar una mayor cantidad de cálculos de distancia
+entre cada punto y los centroides en cada una de las iteraciones del
+proceso.
+
+**4.5 Comparativa Global de Algoritmos**
+
+En esta sección final, comparamos el rendimiento de tres procesos
+distintos: el ordenamiento manual (Burbuja), el ordenamiento optimizado
+(Sort Nativo) y un proceso de inteligencia artificial no supervisada
+(K-means). El objetivo es observar cómo la eficiencia del código impacta
+más que la complejidad de la tarea en sí:
+
+```{r}
+library(microbenchmark)
+library(ggplot2)
+
+# Preparación de datos
+set.seed(123)
+datos_vec <- sample(1:5000, 500)
+datos_mat <- matrix(rnorm(1000), ncol = 2)
+
+# Ejecución del benchmark
+comparativa_total <- microbenchmark(
+  "Burbuja (Manual)" = burbuja(datos_vec),
+  "Sort Nativo (R)" = sort(datos_vec),
+  "K-means (Agrupamiento)" = kmeans(datos_mat, centers = 3),
+  times = 30
+)
+
+# Renderizado del gráfico
+p_final <- autoplot(comparativa_total) +
+  labs(title = "Comparativa: Ordenamiento vs Agrupamiento",
+       subtitle = "Análisis de tiempos de ejecución (n=500)",
+       x = "Algoritmo", y = "Tiempo (Escala Logarítmica)") +
+  theme_minimal()
+
+print(p_final)
+```
+
+
+
+**4.6 Síntesis de Resultados**
+
+
+Tras analizar los experimentos de este módulo, se han extraído tres
+conclusiones determinantes sobre el rendimiento algorítmico:Superioridad
+de las funciones nativas: La notable rapidez del método sort en R valida
+que las herramientas integradas del lenguaje —desarrolladas en C y
+Fortran— poseen una optimización de bajo nivel difícil de igualar con
+implementaciones manuales.El impacto del diseño algorítmico: A pesar de
+su sencillez conceptual, el algoritmo de Burbuja mostró el desempeño más
+deficiente. Esto evidencia que una complejidad computacional elevada
+($O(n^2)$) penaliza el rendimiento de tal forma que incluso procesos de
+inteligencia artificial más sofisticados pueden resultar más ágiles si
+están bien ejecutados.Equilibrio entre procesamiento y escala: El método
+K-means demostró una eficiencia competitiva. Aun cuando requiere
+cálculos matemáticos intensos para la definición de centroides, su
+ejecución en R permite gestionar grandes conjuntos de datos en tiempos
+funcionales, superando con creces la lentitud de los ciclos for
+convencionales.En conclusión, el desarrollo de software moderno exige el
+uso de funciones vectorizadas y arquitecturas optimizadas, dejando de
+lado las soluciones iterativas manuales en favor de la eficiencia de
+procesamiento.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
